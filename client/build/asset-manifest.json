@@ -1,0 +1,18 @@
+{
+  "files": {
+    "main.css": "/static/css/main.d3a49a31.css",
+    "main.js": "/static/js/main.146abede.js",
+    "static/media/DeroIslandsLogo3.jpg": "/static/media/DeroIslandsLogo3.158b0383f291f8b39124.jpg",
+    "static/media/DeroIslands-Smoke_Signals1_400.png": "/static/media/DeroIslands-Smoke_Signals1_400.6c1d4119ca84b69bae31.png",
+    "static/media/DeroIslands-Treasure_Chest1_400.png": "/static/media/DeroIslands-Treasure_Chest1_400.a44c9a9f83cf72a28e1c.png",
+    "static/media/DeroIslands-message in a bottle.png": "/static/media/DeroIslands-message in a bottle.4884d551fc5d470a8ebf.png",
+    "static/media/title.png": "/static/media/title.b25506bff91ca3900278.png",
+    "index.html": "/index.html",
+    "main.d3a49a31.css.map": "/static/css/main.d3a49a31.css.map",
+    "main.146abede.js.map": "/static/js/main.146abede.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.d3a49a31.css",
+    "static/js/main.146abede.js"
+  ]
+}

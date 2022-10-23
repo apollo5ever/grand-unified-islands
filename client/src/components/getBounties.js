@@ -24,7 +24,7 @@ export default async function getBounties(state,island){
   .map(key=>[hex2a(scData[key]),scData[key.substring(0,key.length-2)+"E"],scData[key.substring(0,key.length-2)+"T"],scData[key.substring(0,key.length-2)+"J"],key.substring(0,key.length-3),scData[key.substring(0,key.length-2)+"JN"],scData[key.substring(0,key.length-2)+"JF"]])
 
  try{
-  const response = await fetch('http://localhost:5000/islands/bounties');
+  const response = await fetch('http://127.0.0.1:5000/islands/bounties');
   console.log(response)
    bounties = await response.json();
   console.log(bounties)
