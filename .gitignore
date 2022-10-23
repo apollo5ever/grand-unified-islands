@@ -1,0 +1,16 @@
+islands.json
+.env
+client/package-lock.json
+client/yarn.lock
+network_constants.json
+node_modules
+client/node_modules
+old\ server
+server.js
+route.rest
+routes
+mongo
+models
+functions
+old_client
+.vscode

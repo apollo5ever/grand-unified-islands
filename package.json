@@ -1,0 +1,33 @@
+{
+  "name": "private-islands",
+  "version": "1.0.0",
+  "description": "the world's most resilient support network",
+  "main": "server.js",
+  "scripts": {
+    "client": "PORT=80 && cd client && yarn start",
+    "server": "nodemon server.js",
+    "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\"",
+    "dev:server": "cd client && yarn build && cd .. && yarn start",
+    "start": "node server.js",
+    "heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
+  },
+  "author": "apollo",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.0",
+    "concurrently": "^7.2.2",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "crypto-js": "^4.1.1",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "fs": "^0.0.1-security",
+    "ipfs-core": "^0.16.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.6.5",
+    "node-fetch-commonjs": "^3.1.1",
+    "nodemon": "^2.0.19",
+    "path": "^0.12.7",
+    "underscore": "^1.13.4"
+  }
+}
