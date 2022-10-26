@@ -24,6 +24,20 @@ export default async function getBounties(state,island){
   .map(key=>[hex2a(scData[key]),scData[key.substring(0,key.length-2)+"E"],scData[key.substring(0,key.length-2)+"T"],scData[key.substring(0,key.length-2)+"J"],key.substring(0,key.length-3),scData[key.substring(0,key.length-2)+"JN"],scData[key.substring(0,key.length-2)+"JF"]])
 
  try{
+  try{
+    console.log("try localhost")
+    const response = await fetch('http://localhost:5000/islands/bounties');
+    console.log(response)
+     bounties = await response.json();
+    console.log(bounties)
+  
+    if (response.status !== 200) throw Error(bounties.message);
+  
+  
+  
+   }
+   catch{
+    console.log("try 127")
   const response = await fetch('http://127.0.0.1:5000/islands/bounties');
   console.log(response)
    bounties = await response.json();
@@ -33,8 +47,9 @@ export default async function getBounties(state,island){
 
 
 
- }
+ }}
  catch{
+  console.log("try ipfs")
   
 
   for(let i = 0; i<fundList.length; i++){

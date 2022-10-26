@@ -5,7 +5,7 @@ import * as IPFS from 'ipfs-core'
 import DeroBridgeApi from 'dero-rpc-bridge-api'
 import {LoginContext} from './LoginContext'
 //import {create} from 'ipfs-http-client'
-import callApi from './components/APITest';
+
 
 
 import to from 'await-to-js'
@@ -228,7 +228,7 @@ React.useEffect(()=>{
       
       
      </div>
-     <button onClick={()=>callApi()}>Call Api</button>
+     
     
  
       <div className="rpc-bridge-data">

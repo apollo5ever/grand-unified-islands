@@ -8,6 +8,24 @@ import callApi from "./APITest";
 export default async function getIslands(state,i){
 
  try{
+
+  try{
+    console.log("trying localhost")
+    //  console.log("call api response",await callApi())
+    //  var islands = await callApi()
+     const response = await fetch('http://localhost:5000/islands');
+     console.log(response)
+     const islands = await response.json();
+   
+     if (response.status !== 200) throw Error(islands.message);
+  
+   if(i){
+      return( islands.filter(x=>x.name==i))
+  }
+      else return(islands)
+  
+   }catch{
+    console.log("trying 127")
   //  console.log("call api response",await callApi())
   //  var islands = await callApi()
    const response = await fetch('http://127.0.0.1:5000/islands');
@@ -21,9 +39,10 @@ export default async function getIslands(state,i){
 }
     else return(islands)
 
- }
+ }}
  catch{
 
+  console.log("trying ipfs")
 
 
 console.log("state",state)

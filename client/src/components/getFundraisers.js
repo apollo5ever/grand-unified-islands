@@ -23,17 +23,24 @@ export default async function getFundraisers(state,island){
      .map(key=>[hex2a(scData[key]),scData[key.substring(0,key.length-2)+"D"],scData[key.substring(0,key.length-2)+"G"],scData[key.substring(0,key.length-2)+"R"],scData[key.substring(0,key.length-2)+"F"],scData[key.substring(0,key.length-2)+"C"],key.substring(0,key.length-3)])
      
  try{
-  const response = await fetch('http://localhost:5000/islands/fundraisers');
+  try{
+    console.log("try localhost")
+    const response = await fetch('http://localhost:5000/islands/fundraisers');
+    console.log(response)
+    let bounties = await response.json();
+  
+    if (response.status !== 200) throw Error(bounties.message);
+   }
+   catch{
+    console.log("try 127")
+  const response = await fetch('http://127.0.0.1:5000/islands/fundraisers');
   console.log(response)
   let bounties = await response.json();
 
   if (response.status !== 200) throw Error(bounties.message);
-
-  
-
-
- }
+ }}
  catch{
+  console.log("try ipfs")
   let bounties = []
 
   for(let i = 0; i<fundList.length; i++){
