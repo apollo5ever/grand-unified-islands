@@ -13,7 +13,7 @@ export default async function getIslands(state,i){
     console.log("trying localhost")
     //  console.log("call api response",await callApi())
     //  var islands = await callApi()
-     const response = await fetch('http://localhost:5000/islands');
+     const response = await fetch('/islands');
      console.log(response)
      const islands = await response.json();
    

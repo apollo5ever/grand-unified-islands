@@ -26,7 +26,7 @@ export default async function getBounties(state,island){
  try{
   try{
     console.log("try localhost")
-    const response = await fetch('http://localhost:5000/islands/bounties');
+    const response = await fetch('/islands/bounties');
     console.log(response)
      bounties = await response.json();
     console.log(bounties)
