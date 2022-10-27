@@ -25,7 +25,7 @@ export default async function getFundraisers(state,island){
  try{
   try{
     console.log("try localhost")
-    const response = await fetch('/islands/fundraisers');
+    const response = await fetch('http://localhost:5000/islands/fundraisers');
     console.log(response)
     let bounties = await response.json();
   
