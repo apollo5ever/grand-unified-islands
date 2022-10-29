@@ -10,7 +10,6 @@ import V from './V'
 import Executer from './Executer';
 import N from './N';
 import Judge from './Judge';
-import getBounties from './getBounties';
 
 
 export default function Treasure() {
@@ -130,12 +129,83 @@ export default function Treasure() {
 
   const getFunds = React.useCallback(async () => {
      
-  
-     const t = await getBounties(state,island)
-        //setTreasure(await getBounties(state,island))
-        console.log(t)
-        console.log(t[0].executerList.length)
-        setTreasure(t[0])
+    const deroBridgeApi = state.deroBridgeApiRef.current
+    const [err, res] = await to(deroBridgeApi.daemon('get-sc', {
+            scid:state.scid,
+            variables:true
+            
+    }))
+    
+
+
+    var search= new RegExp(`${island+index}_bm`)
+     console.log("search",search)
+     var scData = res.data.result.stringkeys //.map(x=>x.match(search))
+
+     let fundList= Object.keys(scData)
+     .filter(key => search.test(key))
+     .map(key=>[hex2a(scData[key]),scData[key.substring(0,key.length-2)+"E"],scData[key.substring(0,key.length-2)+"T"],scData[key.substring(0,key.length-2)+"J"],key.substring(0,key.length-3),Object.keys(scData).filter(key2=>new RegExp(`${island+key.substring(key.length-4,key.length-3)}*_J[0-9]`).test(key2)),scData[key.substring(0,key.length-2)+"JN"],scData[key.substring(0,key.length-2)+"JE"],scData[key.substring(0,key.length-2)+"JT"],Object.keys(scData).filter(key3=>new RegExp(`${island+key.substring(key.length-4,key.length-3)}*_X[0-9]`).test(key3)),scData[key.substring(0,key.length-2)+"XN"],scData[key.substring(0,key.length-2)+"XE"],scData[key.substring(0,key.length-2)+"XT"],scData[key.substring(0,key.length-2)+"X"],Object.keys(scData).filter(key4=>new RegExp(`${island+key.substring(key.length-4,key.length-3)}*_R_[0-9]`).test(key4)),Object.keys(scData).filter(key5=>new RegExp(`\\${island+key.substring(key.length-4,key.length-3)}\*_W_[0-9]`).test(key5)),scData[key.substring(0,key.length-2)+"JF"]])
+     
+     console.log("hash array",fundList)
+     
+     for(let i = 0; i<fundList.length; i++){
+   
+      for await (const buf of state.ipfs.cat(fundList[i][0].toString())){
+        let fund = JSON.parse(buf.toString())
+
+       if(fund.island!=fundList[i][4].substring(0,fundList[i][4].length-1)) continue
+       
+        fund.index=fundList[i][4].substring(fundList[i][4].length-1)
+        fund.expiry = fundList[i][1]
+        fund.treasure = fundList[i][2]/100000
+        if(fundList[i][3]) {
+          fund.judge = hex2a(fundList[i][3])
+          fund.judgeAddress=hex2a(scData[`${fund.judge}_O`])
+        }
+        fund.judgeList=[]
+        fund.JN= parseInt((fundList[i][6] + 1+(new Date().getTime()/1000 - fundList[i][7])/1209600)%fundList[i][8])
+        if(new Date().getTime()/1000>fundList[i][7])
+        {fund.JE = Math.round(1209600-(new Date().getTime()/1000-fundList[i][7])%1209600)
+      }else fund.JE = Math.round(fundList[i][7]-new Date().getTime()/1000)
+        for(var k=0;k<fundList[i][5].length;k++)
+        {fund.judgeList.push(hex2a(scData[fundList[i][5][k]]))}
+
+        if(fundList[i][13])fund.executer = hex2a(fundList[i][13])
+        fund.executerList=[]
+        fund.XN= parseInt((fundList[i][10] + 1+(new Date().getTime()/1000 - fundList[i][11])/1209600)%fundList[i][12])
+        if(new Date().getTime()/1000>fundList[i][7])
+        {fund.XE = Math.round(1209600-(new Date().getTime()/1000-fundList[i][11])%1209600)
+      }else fund.XE = Math.round(fundList[i][11]-new Date().getTime()/1000)
+
+
+        //fund.XE = Math.round(300-(new Date().getTime()/1000-fundList[i][11])%300)
+        //fund.tXE = fundList[i][11]
+        for(var k=0;k<fundList[i][9].length;k++)
+        {fund.executerList.push(hex2a(scData[fundList[i][9][k]]))}
+        fund.recipientList=[]
+        for(var k=0;k<fundList[i][14].length;k++){
+          fund.recipientList.push(hex2a(scData[fundList[i][14][k]]))
+        }
+        fund.weightList=[]
+        fund.weightSum=0
+        for(var k=0;k<fundList[i][15].length;k++){
+          fund.weightSum += scData[fundList[i][15][k]]
+          fund.weightList.push(scData[fundList[i][15][k]])
+        }
+        fund.weightList = fund.weightList.map(x=><>weight: {x} ({Math.round(100*x/fund.weightSum)}%)</>)
+        fund.recipientList = fund.recipientList.map((x,i)=><li>{x} {fund.weightList[i]}</li>)
+        fund.JF = fundList[i][16]
+        if(fund.expiry> new Date().getTime()/1000 && fund.JF!=2) fund.status=0
+        else if(fund.JF==2) fund.status=1
+        else if(fund.expiry<new Date().getTime()/1000&&fund.JF!=2) fund.status=2
+     
+        setTreasure(fund)
+        console.log(fund)
+        
+      }
+     }
+
+    console.log("res",res)
   }
   )
 
@@ -205,18 +275,18 @@ export default function Treasure() {
             {treasure.judge?<h3>Active Judge:<NavLink to={`/island/${treasure.judge}?view=main`}>{treasure.judge}</NavLink></h3>:""}
           {treasure.executer?<h3>Active Executer:<NavLink to={`/island/${treasure.executer}?view=main`}>{treasure.executer}</NavLink></h3>:""}
 
-          {treasure.recipientList && treasure.recipientList.length>0?
+          {treasure.recipientList.length>0?
           <>These addresses have been nominated to receive the treasure:
           <ul>{treasure.recipientList}</ul></>
         :""}
 
         <div className="subscribe">
-          <p>Nominated judges: <ol>{treasure.judgeList.map((j,i)=><li><NavLink to={`/island/${j}?view=main`}>{treasure.JN==i?<b>{j}{treasure.judgeList && treasure.judgeList.length>1?<> (expires in {Math.round(treasure.JE/(60*60*24))} days)</>:""}</b>:j}</NavLink></li>)}</ol></p>
+          <p>Nominated judges: <ol>{treasure.judgeList.map((j,i)=><li><NavLink to={`/island/${j}?view=main`}>{treasure.JN==i?<b>{j}{treasure.judgeList.length>1?<> (expires in {Math.round(treasure.JE/(60*60*24))} days)</>:""}</b>:j}</NavLink></li>)}</ol></p>
            
-                        <p>Nominated executers: <ol>{treasure.executerList && treasure.executerList.map((j,i)=><li><NavLink to={`/island/${j}?view=main`}>{treasure.XN==i?<b>{j}{treasure.executerList && treasure.executerList.length>1?<> (expires in {Math.round(treasure.XE/(60*60*24))} days)</>:""}</b>:j}</NavLink></li>)}</ol></p>
+                        <p>Nominated executers: <ol>{treasure.executerList.map((j,i)=><li><NavLink to={`/island/${j}?view=main`}>{treasure.XN==i?<b>{j}{treasure.executerList.length>1?<> (expires in {Math.round(treasure.XE/(60*60*24))} days)</>:""}</b>:j}</NavLink></li>)}</ol></p>
           </div>
         
-          {treasure.status==0 && state.myIslands && state.myIslands.length>0 && island==state.myIslands[state.active].name?<div className='subscribe'><h3>Initiator Functions</h3><p>You initiated this bounty. You may nominate backup judges and executers.</p>
+          {treasure.status==0 && state.myIslands.length>0 && island==state.myIslands[state.active].name?<div className='subscribe'><h3>Initiator Functions</h3><p>You initiated this bounty. You may nominate backup judges and executers.</p>
           <N island={island} index={index} dba={state.deroBridgeApiRef} l="X" scid={state.scid}/><N island={island} index={index} dba={state.deroBridgeApiRef} l="J" scid={state.scid}/>
           </div>:""}
          

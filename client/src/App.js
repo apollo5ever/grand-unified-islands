@@ -59,6 +59,10 @@ function App() {
     let coco = res2.data.result.valuesstring[1]
     setState(state=>({...state,scid:scid,coco:coco}))
   
+    
+  })
+
+  const getIPFS = async ()=>{
     const ipfsboy = await IPFS.create()
    
     const validIp4 = '/ip4/64.225.105.42/tcp/4001/p2p/QmPo1ygpngghu5it8u4Mr3ym6SEU2Wp2wA66Z91Y1S1g29'
@@ -67,7 +71,7 @@ function App() {
     console.log(rez.Peers)
     const config = await ipfsboy.config.getAll()
     setState(state=>({...state,ipfs:ipfsboy}))
-  })
+  }
  
   const getIslands = React.useCallback(async () => {
     console.log("GET ISLANDS")
@@ -131,7 +135,9 @@ console.info(cid.toString())
     console.log(v)
    
   }
-
+React.useEffect(()=>{
+  getIPFS();
+},[])
   
 
 React.useEffect(()=>{
@@ -144,6 +150,7 @@ React.useEffect(()=>{
     const load = async () => {
       deroBridgeApiRef.current = new DeroBridgeApi()
       const deroBridgeApi = deroBridgeApiRef.current
+      
       const [err] = await to(deroBridgeApi.init())
       if (err) {
         setBridgeInitText(<a href="https://chrome.google.com/webstore/detail/dero-rpc-bridge/nmofcfcaegdplgbjnadipebgfbodplpd" target="_blank" rel="noopener noreferrer">Not connected to extension. Download here.</a>)

@@ -48,16 +48,56 @@ export default async function getIslands(state,i){
 console.log("state",state)
 console.log("i",i)   
         var islands=[]
+        var res
+        var scData
+        
+      
        
-        const deroBridgeApi = state.deroBridgeApiRef.current
-        const [err, res] = await to(deroBridgeApi.daemon('get-sc', {
+        if(state.deroBridgeApiRef){
+          const deroBridgeApi = state.deroBridgeApiRef.current
+        let [err, res] = await to(deroBridgeApi.daemon('get-sc', {
                 scid:state.scid,
                 code:false,
                 variables:true
         }))
-        var search= new RegExp(`.*_M`)
+         scData = res.data.result.stringkeys 
+      }else {
+        const data = JSON.stringify({
+          "jsonrpc": "2.0",
+          "id": "1",
+          "method": "DERO.GetSC",
+          "params": {
+            "scid": "ce99faba61d984bd4163b31dd4da02c5bff32445aaaa6fc70f14fe0d257a15c3",
+            "code": false,
+            "variables": true
+          }
+        });
+       let res =await fetch(`https://dero-api.mysrv.cloud/json_rpc`, {
+          method: 'POST',
+         
+          body: data,
+          headers: {'Content-Type': 'application/json' }
+        })
+        console.log(res)
+        let body = await res.json()
+        console.log(body)
+        scData = body.result.stringkeys
+
+        // console.log("res",res)
+        // const body = await res.json()
+        // console.log("explore",JSON.stringify(body));
+          
+      }
+      var search
+      if(i){
+        search = new RegExp(`${i}_M`)
+
+      }else{
+        search= new RegExp(`.*_M`)
+      }
         
-        var scData = res.data.result.stringkeys 
+        
+        
    
        let islandList= Object.keys(scData)
         .filter(key => search.test(key))
@@ -68,15 +108,21 @@ console.log("i",i)
         for(let i = 0; i<islandList.length; i++){
      
          for await (const buf of state.ipfs.cat(islandList[i].toString())){
-           let island = JSON.parse(buf.toString())
+           
+          try{
+            let island = JSON.parse(buf.toString())
            console.log(island)
            islands.push(island)
            console.log(islands)
+          }catch{
+            if(i){
+              return( islands.filter(x=>x.name==i))
+          }
+              else return(islands)
+          }
          }
         }
-        console.log(err)
-        console.log(res)    
-
+        
    console.log("islands final",islands)
 if(i){
     return( islands.filter(x=>x.name==i))

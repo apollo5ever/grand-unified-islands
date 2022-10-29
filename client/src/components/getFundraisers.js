@@ -6,17 +6,42 @@ import callApi from "./APITest";
 
 
 export default async function getFundraisers(state,island){
-
+  var scData
+  var search= new RegExp(`.*_sm`)
+if(state.deroBridgeApiRef){  
   const deroBridgeApi = state.deroBridgeApiRef.current
   const [err, res] = await to(deroBridgeApi.daemon('get-sc', {
           scid:state.scid,
           code:false,
           variables:true
   }))
+ scData = res.data.result.stringkeys
+}else{
+  const data = JSON.stringify({
+    "jsonrpc": "2.0",
+    "id": "1",
+    "method": "DERO.GetSC",
+    "params": {
+      "scid": "ce99faba61d984bd4163b31dd4da02c5bff32445aaaa6fc70f14fe0d257a15c3",
+      "code": false,
+      "variables": true
+    }
+  });
+ let res =await fetch(`https://dero-node.mysrv.cloud/json_rpc`, {
+    method: 'POST',
+   
+    body: data,
+    headers: {'Content-Type': 'application/json' }
+  })
+  console.log(res)
+  let body = await res.json()
+  console.log(body)
+  scData = body.result.stringkeys
 
-  var search= new RegExp(`.*_sm`)
-  console.log("search",search)
-  var scData = res.data.result.stringkeys
+}
+  
+ 
+ let bounties = []
 
   let fundList= Object.keys(scData)
      .filter(key => search.test(key))
@@ -27,7 +52,7 @@ export default async function getFundraisers(state,island){
     console.log("try localhost")
     const response = await fetch('/api/islands/fundraisers');
     console.log(response)
-    let bounties = await response.json();
+    bounties = await response.json();
   
     if (response.status !== 200) throw Error(bounties.message);
    }
@@ -35,13 +60,13 @@ export default async function getFundraisers(state,island){
     console.log("try 127")
   const response = await fetch('http://127.0.0.1:5000/islands/fundraisers');
   console.log(response)
-  let bounties = await response.json();
+  bounties = await response.json();
 
   if (response.status !== 200) throw Error(bounties.message);
  }}
  catch{
   console.log("try ipfs")
-  let bounties = []
+  
 
   for(let i = 0; i<fundList.length; i++){
 
@@ -76,6 +101,7 @@ for(let i = 0; i<bounties.length; i++){
   else if(fund.deadline<new Date().getTime()/1000 && fund.goal > fund.raised) fund.status = 2
 
   if(i==bounties.length){
+    console.log(bounties)
     if(island){
   return( bounties.filter(x=>x.island==island))
 }
@@ -85,7 +111,7 @@ for(let i = 0; i<bounties.length; i++){
 }
 
 
-  
+  return([])
 
 
 

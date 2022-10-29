@@ -3,7 +3,6 @@ import { useParams } from 'react-router-dom';
 import { LoginContext } from '../LoginContext';
 import to from 'await-to-js'
 import sha256 from 'crypto-js/sha256'
-import getFundraisers from './getFundraisers';
 
 
 export default function Fundraiser() {
@@ -23,14 +22,78 @@ export default function Fundraiser() {
 }
 
   const getFunds = React.useCallback(async () => {
-     const fundraiser = await getFundraisers(state,island)
-     setSignal(fundraiser[0])
+     
+    const deroBridgeApi = state.deroBridgeApiRef.current
+    const [err, res] = await to(deroBridgeApi.daemon('get-sc', {
+            scid:state.scid,
+            variables:true,
+            keysstring:[island+index+"_sm",island+index+"_G"]
+    }))
+    
+   // res.data.result.stringkeys[sha256(island).toString()+index+"_M"]
+
+    var search= new RegExp(`${island+index}_sm`)
+     console.log("search",search)
+     var scData = res.data.result.stringkeys //.map(x=>x.match(search))
+
+    let fundList= Object.keys(scData)
+     .filter(key => search.test(key))
+     .map(key=>[hex2a(scData[key]),scData[key.substring(0,key.length-2)+"D"],scData[key.substring(0,key.length-2)+"G"],scData[key.substring(0,key.length-2)+"R"],hex2a(scData[key.substring(0,key.length-2)+"F"]),scData[key.substring(0,key.length-2)+"C"],key.substring(0,key.length-3)])
+     
+     console.log("hash array",fundList)
+     
+     for(let i = 0; i<fundList.length; i++){
+    console.log("helllooo",state.ipfs)
+    console.log(await state.ipfs.id())
+   
+    console.log("fundList",fundList)
+      for await (const buf of state.ipfs.cat(fundList[i][0].toString())){
+        let fund = JSON.parse(buf.toString())
+        console.log(fund.island)
+        console.log(sha256(fund.island).toString())
+        console.log(fundList[i][6].substring(0,64))
+       
+       
+        fund.index=fundList[i][6].substring(fundList[i][6]-1)
+        fund.deadline = fundList[i][1]
+        fund.goal = fundList[i][2]/100000
+        fund.raised = fundList[i][3]
+        fund.fundee = fundList[i][4]
+        fund.claimed = fundList[i][5]
+        if(fund.deadline> new Date().getTime()/1000) fund.status=0
+        else if(fund.deadline< new Date().getTime()/1000 && fund.goal< fund.raised) fund.status = 1
+        else if(fund.deadline<new Date().getTime()/1000 && fund.goal > fund.raised) fund.status = 2
+        setSignal(fund)
+        setRaised(fund.raised/100000)
+      }
+     }
+
+    console.log("res",res)
   }
   )
 
 
 
+  const checkRaised = React.useCallback(async () => {
+      
+      const deroBridgeApi = state.deroBridgeApiRef.current
+      const [err, res] = await to(deroBridgeApi.daemon('get-sc', {
+          scid: state.scid,
+          code: false,
+          variables: true
+      }))
+      const obj = res.data.result.stringkeys
+     let search = sha256(params.island) +params.index+"_Raised"
+     let r = obj[search]
+     console.log("avail",r)
+      setRaised(r/100000)
+      return(r)
+      
 
+      
+      
+
+  })
 
   const withdraw = React.useCallback(async (event) =>{
     event.preventDefault()
@@ -118,7 +181,8 @@ console.log(HashAndIndex,refundable,state.scid,state.randomAddress)
             <h3>{signal.tagline}</h3>
             <h3>Goal: {signal.goal} Dero by {deadlinestring}</h3>
             <h3>Funds will go to: {signal.fundee}</h3>
-            <h3>Progress: {signal.raised}/{signal.goal}</h3>
+            <h3>Progress: {raised!=-1? raised:
+             <b className="availabilityCheck" onClick={()=>checkRaised()}> check</b>}/{signal.goal}</h3>
             <h3>{signal.description}</h3>
             {signal.status==0?<><form onSubmit={supportGoal}>
             <input id="amount" placeholder="Dero amount to donate" type="text"/>

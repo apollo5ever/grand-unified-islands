@@ -15,4 +15,4 @@ functions
 old_client
 .vscode
 client/build
-package.json
+package.json.gitsigners

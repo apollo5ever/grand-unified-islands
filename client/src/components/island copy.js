@@ -10,8 +10,6 @@ import TrustIsland from './trustIsland';
 import hex2a from './hex2a';
 import getMIB from './getMIB';
 import GI from './getIslands'
-import getBounties from './getBounties';
-import getFundraisers from './getFundraisers';
 
 
 
@@ -78,7 +76,12 @@ const getIslandObjects = React.useCallback(async () => {
   setSignals([])
   setJudging([])
   setBottles([])
- 
+  const deroBridgeApi = state.deroBridgeApiRef.current
+  const [err, res] = await to(deroBridgeApi.daemon('get-sc', {
+          scid:state.scid,
+          code:false,
+          variables:true
+  }))
 
   var treasureSearch= new RegExp(`${params.island}[0-9]*_bm`)
   var signalSearch= new RegExp(`${params.island}[0-9]*_sm`)
@@ -87,28 +90,132 @@ const getIslandObjects = React.useCallback(async () => {
   var bottleSearch = new RegExp(params.island+`\\d*_Av`)
   var trustSearch = new RegExp(`\\${params.island}\_T`)
   
-  
+  var scData = res.data.result.stringkeys //.map(x=>x.match(search))
 
  // console.log("BOTTLETESTRESZZ",newBottleSearch,Object.keys(scData).filter(key=>newBottleSearch.test(key)))
 
-//   let trustList = Object.keys(scData)
-//   .filter(key=>trustSearch.test(key))
+  let trustList = Object.keys(scData)
+  .filter(key=>trustSearch.test(key))
 
-//   let trustScore = 0
-//   for (var t=0;t<trustList.length;t++){
-//     trustScore+= scData[trustList[t]]
-//   }
-// setTrust(trustScore/trustList.length)
+  let trustScore = 0
+  for (var t=0;t<trustList.length;t++){
+    trustScore+= scData[trustList[t]]
+  }
+setTrust(trustScore/trustList.length)
   
- 
+  console.log("TRUST",trustList)
+  console.log("PF",postFiltered[0])
+
+  let tierList = Object.keys(scData)
+  .filter(key=>bottleSearch.test(key))  
+  .map(key=><Subscribe profile={params.island} name={postFiltered[0].tiers[key.substring(key.length-4,key.length-3)].name} index={key.substring(key.length-4,key.length-3)} perks={postFiltered[0].tiers[key.substring(key.length-4,key.length-3)].perks} amount={scData[key.substring(0,key.length-2)+"Am"]} interval={scData[key.substring(0,key.length-2)+"I"]} userAddress={state.userAddress} dba={state.deroBridgeApiRef} scid={state.scid} randomAddress={state.randomAddress}/>)
+
+  console.log("tierList",tierList)
+  console.log(bottleSearch)
+  console.log(judgeSearch)
+
   setBottles(await getMIB(postFiltered[0],-1,state))
-  setTreasures(await getBounties(state,params.island))
-  setSignals(await getFundraisers(state,params.island))
 
+  let judgeList = Object.keys(scData)
+  .filter(key=>judgeSearch.test(key))
+  .map(key=>[hex2a(scData[key.substring(0,key.length-2)+"bm"]),hex2a(scData[key]),scData[key.substring(0,key.length-2)+"T"],scData[key.substring(0,key.length-2)+"E"],scData[key.substring(0,key.length-2)+"J"],key.substring(0,key.length-3),Object.keys(scData).filter(key2=>new RegExp(`${key.substring(0,key.length-1)}*[0-9]`).test(key2)),key])
+console.log("judgeList",judgeList)
+  for(let i=0;i<judgeList.length;i++){
+    if(judgeList[i][1]!=postFiltered[0].name || judgeList[i][5].substring(0,judgeList[i][5].length-1)==postFiltered[0].name) continue
+    console.log(judgeList[i][0])
+    for await (const buf of state.ipfs.cat(judgeList[i][0].toString())){
+      try{
+      let treasure = JSON.parse(buf.toString())
+   
+      treasure.judgeList=[]
+      for(var k=0;k<judgeList[i][6].length;k++)
+      {treasure.judgeList.push(hex2a(scData[judgeList[i][6][k]]))}
+     
+      
+     
+      treasure.index=judgeList[i][5].substring(judgeList[i][5].length-1)
+      treasure.expiry = judgeList[i][3]
+      treasure.treasure = judgeList[i][2]/100000
+      treasure.judge = judgeList[i][4]
+     
+      
+      if(treasure.expiry> new Date().getTime()/1000) treasure.status=0
+     
+      setJudging(judging=>[...judging,treasure])
+      console.log('treasuuuure',treasure)
+    
+  } catch(error){
+    console.log('error',error)
+  }
+   }
+  }
+
+ let treasureList= Object.keys(scData)
+  .filter(key => treasureSearch.test(key))
+  .map(key=>[hex2a(scData[key]),scData[key.substring(0,key.length-2)+"E"],scData[key.substring(0,key.length-2)+"T"],scData[key.substring(0,key.length-2)+"J"],key.substring(0,key.length-3),Object.keys(scData).filter(key2=>new RegExp(`\\${postFiltered[0].name+key.substring(key.length-4,key.length-3)}\*_J[0-9]`).test(key2))])
+     
+  
+  
+  for(let i = 0; i<treasureList.length; i++){
+console.log("help",treasureList[i][5])
  
+   for await (const buf of state.ipfs.cat(treasureList[i][0].toString())){
+     try{
+     let treasure = JSON.parse(buf.toString())
+  
+     treasure.judgeList=[]
+     for(var k=0;k<treasureList[i][5].length;k++)
+     {treasure.judgeList.push(hex2a(scData[treasureList[i][5][k]]))}
+     let j =0
+     
+    
+     treasure.index=treasureList[i][4].substring(treasureList[i][4].length-1)
+     treasure.expiry = treasureList[i][1]
+     treasure.treasure = treasureList[i][2]/100000
+     treasure.judge = treasureList[i][3]
+    
+     
+     if(treasure.expiry> new Date().getTime()/1000) treasure.status=0
+    
+     setTreasures(treasures=>[...treasures,treasure])
+     console.log("fundz",treasures)
+   
+ } catch(error){
+   console.log(error)
+ }
+  }
+  
+}
+let fundList= Object.keys(scData)
+.filter(key => signalSearch.test(key))
+.map(key=>[hex2a(scData[key]),scData[key.substring(0,key.length-2)+"D"],scData[key.substring(0,key.length-2)+"G"],scData[key.substring(0,key.length-2)+"R"],scData[key.substring(0,key.length-2)+"F"],scData[key.substring(0,key.length-2)+"C"],key.substring(0,key.length-3)])
+     
+console.log("hash array",fundList)
 
+for(let i = 0; i<fundList.length; i++){
+console.log("helllooo",state.ipfs)
 
-
+console.log("fundList",fundList)
+ for await (const buf of state.ipfs.cat(fundList[i][0].toString())){
+   let fund = JSON.parse(buf.toString())
+   console.log("fund.island",fund.island)
+   
+   console.log(fundList[i][6].substring(0,fundList[i][6].length-1))
+  //if(fund.island!=fundList[i][6].substring(0,fundList[i][6].length-1)) continue
+   fund.island= fundList[i][6].substring(0,fundList[i][6].length-1)
+   fund.index=fundList[i][6].substring(fundList[i][6].length-1)
+   fund.deadline = fundList[i][1]
+   fund.goal = fundList[i][2]/100000
+   fund.raised = fundList[i][3]
+   fund.fundee = fundList[i][4]
+   fund.claimed = fundList[i][5]
+   if(fund.deadline> new Date().getTime()/1000) fund.status=0
+   else if(fund.deadline< new Date().getTime()/1000 && fund.goal< fund.raised) fund.status = 1
+   else if(fund.deadline<new Date().getTime()/1000 && fund.goal > fund.raised) fund.status = 2
+   setSignals(signals=>[...signals,fund])
+   
+ }
+}
 
 
 })
@@ -122,7 +229,7 @@ const getTXHistory = React.useCallback(async () => {
 
 React.useEffect(()=>{
   getIslandObjects()
-},[post,searchParams,state.ipfs])
+},[post,searchParams])
 
    
     React.useEffect(() => {

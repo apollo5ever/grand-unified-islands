@@ -69,7 +69,7 @@ export default function BountyList(){
                 <li onClick={()=>setSearchParams({"filter":"treasure","status":2})}>Failures</li>
             </ul>
             </div>
-            {fundJSX}
+            {fundJSX && fundJSX}
             
                 
                 </div>

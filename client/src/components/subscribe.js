@@ -139,7 +139,7 @@ export default function Subscribe(props) {
          } )
          React.useEffect(() => {
             console.log("executed only once!");
-            checkAvailability();
+            //checkAvailability();
             checkSubbed();
           }, []);
 
@@ -148,7 +148,7 @@ export default function Subscribe(props) {
             <h3>{props.name}</h3>
             <p>{props.amount/100000} Dero per {Math.round(props.interval/(60*60*24))} days</p>
             <p>Perks: {props.perks}</p>
-            <p>Available Spots: {availability}
+            <p>Available Spots: {props.available}
              </p>
            { subbed?<form onSubmit={topUp}>
             <p>You are subscribed to this tier. Your subscription ends in {expiry} days.</p>
