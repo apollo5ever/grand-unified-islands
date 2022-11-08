@@ -10,6 +10,8 @@ export default function Subscribe(props) {
     const [availability,setAvailability] = React.useState("")
     const [subbed,setSubbed] = React.useState(false)
     const [expiry,setExpiry] = React.useState(null)
+    const [integrated,setIntegrated] = React.useState(false)
+    const [integratedAddress,setIntegratedAddress] = React.useState("")
 
     const checkAvailability = React.useCallback(async () => {
         
@@ -30,6 +32,17 @@ export default function Subscribe(props) {
         
 
     })
+
+    const getIntegrated = async (e)=>{
+        e.preventDefault()
+        console.log("integrate")
+        const response = await fetch(`http://localhost:5000/api/islands/integrate/${e.target.address.value}/${props.profile+props.index}`)
+        console.log(response)
+        const body = await response.json()
+        console.log(body)
+        setIntegratedAddress(body.address)
+        
+    }
 
     const checkSubbed = React.useCallback(async ()=>{
         const deroBridgeApi = props.dba.current
@@ -160,6 +173,10 @@ export default function Subscribe(props) {
                 <button type={"submit"}>Subscribe</button>
             </form>}
            <div className="error"> {error}</div>
+           <small onClick={()=>setIntegrated(!integrated)}>Get Integrated Address</small>
+           {integrated?<form onSubmit={getIntegrated}><input id="address" type="text" placeholder="Subscriber's Dero Address"/>
+           <button type={"submit"}>Get</button></form>:""}
+           {integratedAddress}
         </div>
     )
 }
