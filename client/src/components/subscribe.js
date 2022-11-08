@@ -36,7 +36,7 @@ export default function Subscribe(props) {
     const getIntegrated = async (e)=>{
         e.preventDefault()
         console.log("integrate")
-        const response = await fetch(`http://localhost:5000/api/islands/integrate/${e.target.address.value}/${props.profile+props.index}`)
+        const response = await fetch(`/api/islands/integrate/${e.target.address.value}/${props.profile+props.index}`)
         console.log(response)
         const body = await response.json()
         console.log(body)
