@@ -1,399 +1,441 @@
 .App {
   display: flex;
-  justify-content:safe;
+  justify-content: safe;
   align-items: center;
   height: 100vh;
   margin-left: auto;
   margin-right: auto;
 
- flex-direction: column;
-  }
-
-
- 
-
-body {
-  background: rgb(83, 99, 243);
- 
-  background-size: cover;
-  background-position:center;
-  background-attachment: fixed;
-  background-image:url('./images/DeroIslandsLogo3.jpg');
-  text-align:center;
-  
-  
+  flex-direction: column;
 }
 
- .function-container {
-  top:10vw;
+body {
+  background-color: #eaddd4;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  text-align: center;
+}
+
+.function-container {
+  top: 10vw;
   margin-left: auto;
   margin-right: auto;
   align-items: center;
- justify-content:center;
- display: flex;
- flex-direction: column;
- height: fit-content;
- 
- 
- position: absolute;
-} 
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  height: fit-content;
+
+  position: absolute;
+}
 
 .function form {
-  position:inherit;
-  
-  
+  position: inherit;
+
   margin-left: auto;
   margin-right: auto;
   align-items: center;
- justify-content:center;
- display: flex;
- flex-direction: column;
- 
-
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
 }
 
 .card-grid {
-  
-  
-  
- 
-  
   margin-left: auto;
   margin-right: auto;
   padding: 10px;
- border-width: 1px;
- border-style:inset;
+  border-width: 1px;
+  border-style: inset;
 
- max-width:60vw;
- 
- 
- min-width:40vw;
- height:auto;
- overflow:visible;
- 
- align-items:center;
- justify-content:center;
- display:flex;
- flex-flow: wrap;
- 
- 
- position:relative;
- 
+  max-width: 60vw;
+
+  min-width: 40vw;
+  height: auto;
+  overflow: visible;
+
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-flow: wrap;
+
+  position: relative;
 }
 
-.card-card{
-  display:flex;
-  flex-direction:column;
+.card-card {
+  display: flex;
+  flex-direction: column;
 }
 
-input[type="checkbox"]
-{
-    vertical-align:middle;
+input[type="checkbox"] {
+  vertical-align: middle;
 }
 .tierList {
-  display:flex;
+  display: flex;
   flex-direction: row;
-  
-  
 }
-ul{
-  list-style:none;
+ul {
+  list-style: none;
 }
 
 .function {
-  
-  background: linear-gradient( rgba(255, 255, 255, 0.8), rgba(231, 196, 196, 0.45) );
-  
+  background: linear-gradient(
+    rgba(255, 255, 255, 0.8),
+    rgba(231, 196, 196, 0.45)
+  );
+
   border-radius: 5%;
   margin-top: 10vw;
   margin-left: auto;
   margin-right: auto;
   padding: 10px;
- border-width: 1px;
- border-style:inset;
- border-color:blue;
- max-width:fit-content;
- 
- min-width:40vw;
- height:auto;
- overflow:visible;
- 
- align-items:center;
- justify-content:center;
- display: flex;
- flex-direction: column;
- 
- position:relative;
- 
+  border-width: 1px;
+  border-style: inset;
+  border-color: blue;
+  max-width: fit-content;
+
+  min-width: 40vw;
+  height: auto;
+  overflow: visible;
+
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+
+  position: relative;
 }
 
 .function input {
-  display:list-item;
-  
+  display: list-item;
 }
 
 .function a {
-  color:black;
+  color: black;
 }
 
 .function p {
-  max-width:800px;
-  font-family:"Lucida Console", "Courier New", monospace;
-  
-  
+  max-width: 800px;
+  font-family: "Lucida Console", "Courier New", monospace;
 }
 
 a {
-  margin:30px;
-  color:white;
-
-  
+  margin: 30px;
+  color: white;
 }
 
-
-
 .logo {
-  cursor:pointer;
-  font-family:fantasy;
-  margin:20px;
+  cursor: pointer;
+  font-family: fantasy;
+  margin: 20px;
 }
 
 .menu {
-  
   /*
   background: url("https://www.publicdomainpictures.net/pictures/250000/velka/large-green-fan-palm-leaf.jpg");
   */
-  background:none;
- /* position:absolute(top);*/
- position: absolute(top);
-display: inline-block;
-  padding:0px;
-  margin:0px;
-  margin-bottom:20px;
+  background: none;
+  /* position:absolute(top);*/
+  position: absolute(top);
+  display: inline-block;
+  padding: 0px;
+  margin: 0px;
+  margin-bottom: 20px;
   font-size: 25pt;
   /*
   width:100vw;
   */
-  
 }
 
-.menu ul{
-  list-style:none;
+.menu ul {
+  list-style: none;
   margin: 0px;
   padding: 0px;
-  
-  
 }
 
-.menu li{
+.menu li {
   position: relative;
   display: inline-block;
-  margin-bottom:0px;
+  margin-bottom: 0px;
   margin-top: 0px;
-  margin-left:10px;
-  margin-right:10px;
+  margin-left: 10px;
+  margin-right: 10px;
   padding: 0px;
-  cursor:pointer;
-  
+  cursor: pointer;
 }
 
 footer {
-  color:white;
+  color: white;
 }
 
 .exclusive-post {
-  border-style:dashed;
-  margin:10px;
+  border-style: dashed;
+  margin: 10px;
 }
 
 .ProfileCard {
-  border-style:dashed;
-  cursor:pointer;
-  
+  border-style: dashed;
+  cursor: pointer;
+
   border-color: rgba(7, 145, 80, 0.65);
-  width:auto;
+  width: auto;
 }
 
-.profile img{
-  width:120px;
+.profile img {
+  width: 120px;
   height: 180px;
-  border-radius:50%;
-  
-  
+  border-radius: 50%;
 }
 
 .icons {
-  align-items:center;
-  justify-content:center;
+  align-items: center;
+  justify-content: center;
   display: flex;
   flex-direction: row;
-  
-  position:relative;
+
+  position: relative;
 }
 
 .icons img {
-  width:5vw;
+  width: 5vw;
   height: 5vw;
 }
-.icons-treasure,.icons-mail,.icons-signal:hover{
+.icons-treasure,
+.icons-mail,
+.icons-signal:hover {
   cursor: pointer;
 }
 
 .mytreasure {
-  overflow-x:auto;
+  overflow-x: auto;
 }
 
+.icons-treasure {
+  background-image: url("./images/DeroIslands-Treasure_Chest1_400.png");
 
-
-
-.icons-treasure{
-  background-image:url('./images/DeroIslands-Treasure_Chest1_400.png');
-  
- background-position:center;
+  background-position: center;
   background-size: 8vw 8vw;
-  margin:2vw;
-  margin-top:0;
-  margin-bottom:0;
-  padding:1vw;
-  width:8vw;
-  height:8vw;
-  box-sizing:border-box;
-  display:flex;
+  margin: 2vw;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding: 1vw;
+  width: 8vw;
+  height: 8vw;
+  box-sizing: border-box;
+  display: flex;
 }
 
-.icons-signal{
-  background-image:url('./images/DeroIslands-Smoke_Signals1_400.png');
- background-position:center;
+.icons-signal {
+  background-image: url("./images/DeroIslands-Smoke_Signals1_400.png");
+  background-position: center;
   background-size: 8vw 8vw;
-  margin:2vw;
-  margin-top:0;
-  margin-bottom:0;
-  padding:1vw;
-  width:8vw;
-  height:8vw;
-  box-sizing:border-box;
-  display:flex;
+  margin: 2vw;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding: 1vw;
+  width: 8vw;
+  height: 8vw;
+  box-sizing: border-box;
+  display: flex;
 }
-.icons-mail{
-  background-image:url('./images/DeroIslands-message\ in\ a\ bottle.png');
- background-position:center;
+.icons-mail {
+  background-image: url("./images/DeroIslands-message\ in\ a\ bottle.png");
+  background-position: center;
   background-size: 8vw 8vw;
-  margin:2vw;
-  margin-top:0; 
-  margin-bottom:0;
-  padding:1vw;
-  width:8vw;
-  height:8vw;
-  box-sizing:border-box;
-  display:flex;
-  }
-.icons-text{
-  margin-left:auto;
-  margin-right:auto;
-  align-self:flex-end;
+  margin: 2vw;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding: 1vw;
+  width: 8vw;
+  height: 8vw;
+  box-sizing: border-box;
+  display: flex;
+}
+.icons-text {
+  margin-left: auto;
+  margin-right: auto;
+  align-self: flex-end;
 }
 
-.post img{
-  width:300px;
-  height:300px;
+.post img {
+  width: 300px;
+  height: 300px;
 }
 
-.profile p{
-  
+.profile p {
   margin-left: auto;
   margin-right: auto;
 }
 
-
-.ProfileCard img{
-  width:120px;
+.ProfileCard img {
+  width: 120px;
   height: auto;
-  border-radius:50%;
-  
+  border-radius: 50%;
 }
 
 .PostCard {
-  border-style:dashed;
-  cursor:pointer;
+  border-style: dashed;
+  cursor: pointer;
 }
 
 .subscribe {
-  border-style:groove;
-  margin:5px;
-} 
+  border-style: groove;
+  margin: 5px;
+}
 
-
-
-.constitution p, .constitution h2{
-width:300px;
+.constitution p,
+.constitution h2 {
+  width: 300px;
 }
 
 .constitution h2 {
-color:white;
-margin-top:50px;
-
+  color: white;
+  margin-top: 50px;
 }
 
-.status-selector ul{
-list-style:none;
-display:flex;
-flex-direction:row;
-
-
-
+.status-selector ul {
+  list-style: none;
+  display: flex;
+  flex-direction: row;
 }
-
 
 .status-selector ul li {
-  margin-left:5vw;
-  margin-right:5vw;
-  
+  margin-left: 5vw;
+  margin-right: 5vw;
 }
 
-.status-selector ul li:hover{
-  cursor:pointer;
+.status-selector ul li:hover {
+  cursor: pointer;
 }
 
 .navbar {
-
+  height: 10vh;
+  background-color: #85c9e0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   z-index: 10;
-  position:absolute;
-  top:5vw;
-  display:flex;
-  flex-direction:row;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  transition: 0.5s;
 }
 
- small:hover{
-cursor:pointer;
+.nav-header {
+  font-family: Arial, Helvetica, sans-serif;
+  color: #f8f2ee;
+  font-size: 3em;
+  margin-left: 15px;
+  filter: drop-shadow(5px 5px 10px rgba(0, 0, 0, 0.178));
+}
+
+.navbar:hover .nav-header {
+  transform: translateY(-2px);
+  transition: 1s;
+  filter: drop-shadow(5px 5px 10px rgba(255, 255, 255, 0.404));
+}
+
+.navbar:hover .nav-logo {
+  transform: translateY(-2px);
+  transition: 1s;
+  filter: drop-shadow(5px 5px 10px rgba(255, 255, 255, 0.404));
+}
+
+.nav-logo {
+  margin-left: 15%;
+  max-height: 80%;
+  filter: drop-shadow(5px 5px 10px rgba(0, 0, 0, 0.404));
+}
+
+.menu-bars {
+  transform: translateY(5px);
+  margin-right: 15%;
+  margin-left: auto;
+  max-height: 100%;
+  color: white;
+  transition: 0.5s;
+}
+
+.menu-bars:hover {
+  cursor: pointer;
+  filter: drop-shadow(2px 2px 5px #fff);
+  transition: 0.5s;
+}
+
+.navlink {
+  text-decoration: none;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bolder;
+  font-size: 1.5em;
+  transition: 0.2s;
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  border-bottom: solid 1px;
+  border-color: rgba(255, 255, 255, 0.342);
+}
+
+.navlink:hover {
+  transition: 0.5s;
+  background-color: #85c9e0;
+}
+
+.navlink-text {
+  margin-top: 5px;
+  margin-right: 15%;
+}
+
+.dropdown-menu {
+  text-align: right;
+  display: flex;
+  justify-content: right;
+  align-items: flex-end;
+  flex-direction: column;
+  width: 100vw;
+  margin-top: 9vh;
+  background-color: #085479;
+  transition: 0.5s;
+}
+
+.dropdown-menu.inactive {
+  transform: translateY(-100%);
+  transition: 0.2s;
+}
+
+small:hover {
+  cursor: pointer;
 }
 
 .rpc-bridge-data {
-  position:fixed;
-  top:10vw;
-  margin-left:80vw;
+  position: fixed;
+  top: 10vw;
+  margin-left: 80vw;
 }
 
 .cocos {
   position: fixed;
-  top:20vw;
-  margin-left:80vw;
+  top: 20vw;
+  margin-left: 80vw;
 }
 
-
-
 .bridgeInitText {
-  max-width:fit-content;
+  max-width: fit-content;
   background: rgba(57, 119, 16, 0.75);
-  margin-top:20px;
+  margin-top: 20px;
   margin-left: auto;
   margin-right: auto;
   align-items: center;
- justify-content:center;
- display: flex;
- flex-direction: column;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
 }
 
-input[type=button], input[type=submit], input[type=reset], button{
+input[type="button"],
+input[type="submit"],
+input[type="reset"],
+button {
   background-color: #4658ff;
   border: none;
   color: white;
@@ -404,65 +446,60 @@ input[type=button], input[type=submit], input[type=reset], button{
   box-shadow: 1px 2px #000000;
 }
 
-button:active{
-  box-shadow:none;
+button:active {
+  box-shadow: none;
 }
 
-input[type=text], input[type=password] {
-  
-padding: 12px 20px;
-margin: 8px 0;
-box-sizing: border-box;
-border: 3px solid #ccc;
--webkit-transition: 0.5s;
-transition: 0.5s;
-outline: none;
-
-  
+input[type="text"],
+input[type="password"] {
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 3px solid #ccc;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  outline: none;
 }
 
-input[type=text]:focus, input[type=password]:focus {
+input[type="text"]:focus,
+input[type="password"]:focus {
   border: 3px solid #555;
 }
 
 .menu-item {
   position: relative;
-display: inline-block;
+  display: inline-block;
 }
 
-
-.menu-item:hover .submenu{
-  display:block;
-
+.menu-item:hover .submenu {
+  display: block;
 }
 
 .submenu {
   display: none;
-position:absolute;
-background-color: rgb(224, 211, 167);
-padding:0px;
-margin:0px;
+  position: absolute;
+  background-color: rgb(224, 211, 167);
+  padding: 0px;
+  margin: 0px;
 
-
-z-index: 1;
+  z-index: 1;
 }
 
 .submenu li:hover {
-    background-color:rgba(103, 159, 223, 0.65);
+  background-color: rgba(103, 159, 223, 0.65);
 }
 
 .submenu li {
-    width:100%;
-    padding: 0;
-    margin:0;
-  
+  width: 100%;
+  padding: 0;
+  margin: 0;
 }
 
 .error {
-  background-color:rgba(7, 145, 80, 0.65);
-  color:red;
+  background-color: rgba(7, 145, 80, 0.65);
+  color: red;
 }
 
 .availabilityCheck:hover {
-  cursor:pointer;
+  cursor: pointer;
 }
