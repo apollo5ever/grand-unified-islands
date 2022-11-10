@@ -56,10 +56,17 @@ export default function Subscribe(props) {
         var scData = res0.data.result.stringkeys
         var supporterSearch = `${props.userAddress}_${props.profile+props.index}_E`
         var expiry = scData[supporterSearch]
-        if(expiry> new Date().getTime()/1000){
+        if(expiry){
+           if(expiry> new Date().getTime()/1000){
              setSubbed(true)
              setExpiry(Math.round((expiry-new Date().getTime()/1000)/(60*60*24)))
+        } else{
+            setSubbed(true)
+            setExpiry(0)
         }
+
+        }
+        
    
     })
 
@@ -164,7 +171,7 @@ export default function Subscribe(props) {
             <p>Available Spots: {props.available}
              </p>
            { subbed?<form onSubmit={topUp}>
-            <p>You are subscribed to this tier. Your subscription ends in {expiry} days.</p>
+            {expiry==0?<p>Your subscription has expired.</p>:<p>You are subscribed to this tier. Your subscription ends in {expiry} days.</p>}
                 <input placeholder="Dero Amount" id="amount" type="text"/>
                 <button type={"submit"}>Top Up</button>
             </form>:

@@ -224,7 +224,7 @@ function App() {
         <NavLink className="navlink" to="myisland">
           <div className="navlink-text">My Island</div>
         </NavLink>
-        <NavLink className="navlink" to="about">
+        <NavLink className="navlink" to="about?view=features">
           <div className="navlink-text">About</div>
         </NavLink>
         <NavLink className="navlink" to="oao">

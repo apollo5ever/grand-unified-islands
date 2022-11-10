@@ -10,7 +10,7 @@
 }
 
 body {
-  background-color: #eaddd4;
+  background-color: #7dc0ff86;
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
@@ -18,7 +18,7 @@ body {
 }
 
 .function-container {
-  top: 10vw;
+  top: 5vw;
   margin-left: auto;
   margin-right: auto;
   align-items: center;
@@ -85,7 +85,7 @@ ul {
   );
 
   border-radius: 5%;
-  margin-top: 10vw;
+  margin-top:2vw;
   margin-left: auto;
   margin-right: auto;
   padding: 10px;
