@@ -35,7 +35,7 @@ if(state.deroBridgeApiRef){
   })
   console.log(res)
   let body = await res.json()
-  console.log(body)
+  console.log("body",body)
   scData = body.result.stringkeys
 
 }
@@ -66,7 +66,7 @@ if(state.deroBridgeApiRef){
  }}
  catch{
   console.log("try ipfs")
-  
+  console.log(fundList)
 
   for(let i = 0; i<fundList.length; i++){
 
@@ -74,6 +74,7 @@ if(state.deroBridgeApiRef){
       for await (const buf of state.ipfs.cat(fundList[i][0].toString())){
         try{
         let fund = JSON.parse(buf.toString())
+        console.log(fund)
 
     
      bounties.push(fund)
@@ -89,20 +90,22 @@ if(state.deroBridgeApiRef){
 }
 for(let i = 0; i<bounties.length; i++){
   let fund = bounties[i]
+  console.log("fund",fund,i)
   fund.island= fundList[i][6].substring(0,fundList[i][6].length-1)
   fund.index=fundList[i][6].substring(fundList[i][6].length-1)
   fund.deadline = fundList[i][1]
   fund.goal = fundList[i][2]/100000
   fund.raised = fundList[i][3]
-  fund.fundee = fundList[i][4]
+  fund.fundee = hex2a(fundList[i][4])
   fund.claimed = fundList[i][5]
   if(fund.deadline> new Date().getTime()/1000) fund.status=0
   else if(fund.deadline< new Date().getTime()/1000 && fund.goal< fund.raised) fund.status = 1
   else if(fund.deadline<new Date().getTime()/1000 && fund.goal > fund.raised) fund.status = 2
 
-  if(i==bounties.length){
-    console.log(bounties)
+  if(i==bounties.length-1){
+    console.log("i=length",i,island,bounties)
     if(island){
+      console.log("return",bounties.filter(x=>x.island==island))
   return( bounties.filter(x=>x.island==island))
 }
   else return(bounties)

@@ -23,8 +23,10 @@ export default function Fundraiser() {
 }
 
   const getFunds = React.useCallback(async () => {
+    console.log(state,island)
      const fundraiser = await getFundraisers(state,island)
-     setSignal(fundraiser[0])
+     console.log(await fundraiser)
+     setSignal(await fundraiser[0])
   }
   )
 
@@ -101,8 +103,8 @@ console.log(HashAndIndex,refundable,state.scid,state.randomAddress)
 
 
 
-      var deadline = new Date(signal.deadline*1000)
-      var deadlinestring = (deadline.getMonth()+1).toString()+"/"+deadline.getDate().toString()+"/"+deadline.getUTCFullYear().toString()
+     if(signal){ var deadline = new Date(signal.deadline*1000)
+      var deadlinestring = (deadline.getMonth()+1).toString()+"/"+deadline.getDate().toString()+"/"+deadline.getUTCFullYear().toString()}
 
       React.useEffect(() => {
         console.log("executed only once!");
@@ -113,7 +115,7 @@ console.log(HashAndIndex,refundable,state.scid,state.randomAddress)
     return (<div className="function">
         <div className="profile" >
           
-     {  signal.image?<>   <img src={signal.image}/>
+     {  signal?<>   <img src={signal.image}/>
             <h1>{signal.name}</h1>
             <h3>{signal.tagline}</h3>
             <h3>Goal: {signal.goal} Dero by {deadlinestring}</h3>
