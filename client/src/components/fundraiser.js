@@ -120,9 +120,9 @@ console.log(HashAndIndex,refundable,state.scid,state.randomAddress)
             <h3>{signal.tagline}</h3>
             <h3>Goal: {signal.goal} Dero by {deadlinestring}</h3>
             <h3>Funds will go to: {signal.fundee}</h3>
-            <h3>Progress: {signal.raised/100000}/{signal.goal}</h3>
-            
-            <p dangerouslySetInnerHTML={{__html: signal.description}} />
+            <h3>Progress: {signal.raised}/{signal.goal}</h3>
+           
+<p dangerouslySetInnerHTML={{__html: signal.description}} />
             {signal.status==0?<><form onSubmit={supportGoal}>
             <input id="amount" placeholder="Dero amount to donate" type="text"/>
             <label htmlFor='refundable'>Refundable?</label>
