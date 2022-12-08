@@ -2,11 +2,18 @@ import React from 'react'
 
 export default function IslandCard(props) {
     return (
-        <div className="ProfileCard" > 
-            <h1>{props.name}</h1>
-            <img src={props.image}/>
-            <p>{props.tagline}</p>
-            <b>Click to See More</b>
-        </div>
+
+<div class="profile-card">
+
+<div class="profile-card__back">
+  <p>{props.tagline}</p>
+</div>
+
+<div class="profile-card__front">
+ <img src={props.image}/>
+ <h2>{props.name}</h2>
+</div>
+</div>
+
     )
 }

@@ -48,7 +48,7 @@ export default function IslandList(){
 
      
      const islandJSX = shuffleArray(islands).map(bio => {
-         return(<div className="function"> <NavLink to={`/island/${bio.name}?view=main`}><IslandCard  name={bio.name} tagline={bio.tagline} image={bio.image} /></NavLink> </div>)
+         return( <NavLink to={`/island/${bio.name}?view=main`}><IslandCard  name={bio.name} tagline={bio.tagline} image={bio.image} /></NavLink> )
      })
       return(
         <div className="function">
@@ -58,8 +58,8 @@ export default function IslandList(){
           </div>
          {!searchParams.get("filter")?<div>
           
-          {islandJSX}
-                <div className="function"><NavLink to={'/claimIsland'}><IslandCard name="Your Name Here" tagline="Claim Your Private Island" image="http://myaccountancyplace.co.uk/wp-content/uploads/2017/07/mystery-person-with-question-mark.jpg" /></NavLink></div>
+          <div className="profile-card-grid">{islandJSX}</div>
+                
          
          </div>
          :searchParams.get("filter")=="treasure"? <BountyList/>
