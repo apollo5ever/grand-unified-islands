@@ -91,20 +91,13 @@ if(state.deroBridgeApiRef){
 for(let i = 0; i<bounties.length; i++){
   let fund = bounties[i]
   console.log("fund",fund,i)
-  var j
-  for(let k = 0; k<fundList.length; k++){
-	if(fund.island + fund.index === fundList[k][6]) {
-		j=k
-		break
-	}
-  }
-  //fund.island= fundList[i][6].substring(0,fundList[i][6].length-1)
-  //fund.index=fundList[i][6].substring(fundList[i][6].length-1)
-  fund.deadline = fundList[j][1]
-  fund.goal = fundList[j][2]/100000
-  fund.raised = fundList[j][3]/100000
-  fund.fundee = hex2a(fundList[j][4])
-  fund.claimed = fundList[j][5]
+  fund.island= fundList[i][6].substring(0,fundList[i][6].length-1)
+  fund.index=fundList[i][6].substring(fundList[i][6].length-1)
+  fund.deadline = fundList[i][1]
+  fund.goal = fundList[i][2]/100000
+  fund.raised = fundList[i][3]
+  fund.fundee = hex2a(fundList[i][4])
+  fund.claimed = fundList[i][5]
   if(fund.deadline> new Date().getTime()/1000) fund.status=0
   else if(fund.deadline< new Date().getTime()/1000 && fund.goal< fund.raised) fund.status = 1
   else if(fund.deadline<new Date().getTime()/1000 && fund.goal > fund.raised) fund.status = 2
