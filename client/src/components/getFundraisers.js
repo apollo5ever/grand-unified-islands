@@ -93,6 +93,7 @@ for(let i = 0; i<bounties.length; i++){
   console.log("fund",fund,i)
   var j
   for(let k = 0; k<fundList.length; k++){
+	console.log("MISMATCH-DEBUG",fund.island,fund.index,fundList[k][6])
 	if(fund.island + fund.index === fundList[k][6]) {
 		j=k
 		break

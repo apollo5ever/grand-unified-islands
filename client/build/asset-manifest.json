@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/static/css/main.f9662d1e.css",
-    "main.js": "/static/js/main.aba85f0c.js",
+    "main.css": "/static/css/main.800a1eac.css",
+    "main.js": "/static/js/main.3542f237.js",
     "static/media/DeroIslands-Smoke_Signals1_400.png": "/static/media/DeroIslands-Smoke_Signals1_400.6c1d4119ca84b69bae31.png",
     "static/media/DeroIslands-Treasure_Chest1_400.png": "/static/media/DeroIslands-Treasure_Chest1_400.a44c9a9f83cf72a28e1c.png",
     "static/media/DeroIslands-message in a bottle.png": "/static/media/DeroIslands-message in a bottle.4884d551fc5d470a8ebf.png",
     "static/media/logotransparent.png": "/static/media/logotransparent.ee389a36cdf74af7b010.png",
     "index.html": "/index.html",
-    "main.f9662d1e.css.map": "/static/css/main.f9662d1e.css.map",
-    "main.aba85f0c.js.map": "/static/js/main.aba85f0c.js.map"
+    "main.800a1eac.css.map": "/static/css/main.800a1eac.css.map",
+    "main.3542f237.js.map": "/static/js/main.3542f237.js.map"
   },
   "entrypoints": [
-    "static/css/main.f9662d1e.css",
-    "static/js/main.aba85f0c.js"
+    "static/css/main.800a1eac.css",
+    "static/js/main.3542f237.js"
   ]
 }
