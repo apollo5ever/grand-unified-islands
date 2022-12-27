@@ -1,14 +1,8 @@
 import React from 'react'
-import to from 'await-to-js'
-import { LoginContext } from '../LoginContext';
-
-
-
-
-
+import {LoginContext} from '../LoginProvider';
 
 export default function SelectIsland(){
-const [state, setState] = React.useContext(LoginContext);
+const {state, setState} = React.useContext(LoginContext);
   const setIsland= (e) => {
     e.preventDefault()
    

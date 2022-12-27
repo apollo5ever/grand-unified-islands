@@ -33,9 +33,9 @@ if(state.deroBridgeApiRef){
     body: data,
     headers: {'Content-Type': 'application/json' }
   })
-  console.log(res)
+  // console.log(res)
   let body = await res.json()
-  console.log("body",body)
+  // console.log("body",body)
   scData = body.result.stringkeys
 
 }
@@ -49,24 +49,24 @@ if(state.deroBridgeApiRef){
      
  try{
   try{
-    console.log("try localhost")
+    // console.log("try localhost")
     const response = await fetch('/api/islands/fundraisers');
-    console.log(response)
+    // console.log(response)
     bounties = await response.json();
   
     if (response.status !== 200) throw Error(bounties.message);
    }
    catch{
-    console.log("try 127")
+    // console.log("try 127")
   const response = await fetch('http://127.0.0.1:5000/islands/fundraisers');
-  console.log(response)
+  // console.log(response)
   bounties = await response.json();
 
   if (response.status !== 200) throw Error(bounties.message);
  }}
  catch{
-  console.log("try ipfs")
-  console.log(fundList)
+  // console.log("try ipfs")
+  // console.log(fundList)
 
   for(let i = 0; i<fundList.length; i++){
 
@@ -74,7 +74,7 @@ if(state.deroBridgeApiRef){
       for await (const buf of state.ipfs.cat(fundList[i][0].toString())){
         try{
         let fund = JSON.parse(buf.toString())
-        console.log(fund)
+        // console.log(fund)
 
     
      bounties.push(fund)

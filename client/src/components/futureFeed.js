@@ -1,18 +1,14 @@
-import React from 'react'
-import { NavLink ,Link} from 'react-router-dom';
-import IslandCard from './islandCard';
-import { LoginContext } from '../LoginContext';
-import PostCard from './postcard';
+import React, {useContext} from 'react'
+import {LoginContext} from '../LoginProvider';
 import CryptoJS from 'crypto-js';
-import { Buffer } from 'buffer';
 import Post from './post';
 
 
 export default function FutureFeed(){
 
+  const {state} = useContext(LoginContext);
     const [posts,setPosts] = React.useState([])
     const [feed,setFeed] = React.useState("")
-    const [state, setState] = React.useContext(LoginContext);
 
 
 

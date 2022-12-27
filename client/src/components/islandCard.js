@@ -9,13 +9,13 @@ React.useEffect(() => {
     
 return (
 
-<div class="profile-card">
+<div className="profile-card">
 
-<div class="profile-card__back">
+<div className="profile-card__back">
   <p>{props.tagline}</p>
 </div>
 
-<div class="profile-card__front">
+<div className="profile-card__front">
 <img src={src} onError={() => setSrc("https://privateislands.fund/static/media/logotransparent.ee389a36cdf74af7b010.png")} />
  
  <h2>{props.name}</h2>

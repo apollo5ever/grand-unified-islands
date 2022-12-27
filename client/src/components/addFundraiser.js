@@ -7,7 +7,7 @@ import { useParams,useSearchParams } from 'react-router-dom'
 
 
 
-import { LoginContext } from '../LoginContext';
+import {LoginContext} from '../LoginProvider';
 import Success from './success.js'
 
 
@@ -15,7 +15,7 @@ export default function CreateFund() {
 
     
     
-    const [state, setState] = React.useContext(LoginContext);
+    const {state, setState} = React.useContext(LoginContext);
     const [searchParams,setSearchParams] = useSearchParams()
 
     const params=useParams()

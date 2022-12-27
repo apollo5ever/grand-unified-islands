@@ -1,13 +1,7 @@
-
-import DeroBridgeApi from '../api.js'
-import React from 'react'
-import ReactDOM from 'react-dom'
+import React, {useContext} from 'react'
+import {LoginContext} from '../LoginProvider';
 import to from 'await-to-js'
 import { useSearchParams } from 'react-router-dom'
-
-
-
-import { LoginContext } from '../LoginContext';
 import Success from './success.js'
 
 
@@ -15,7 +9,7 @@ export default function ClaimIsland() {
 
     
   let [searchParams, setSearchParams] = useSearchParams();
-    const [state, setState] = React.useContext(LoginContext);
+  const {state} = useContext(LoginContext);
     const [addition,setAddition] = React.useState("")
     const [custom,setCustom]=React.useState(false)
     const [judges,setJudges]=React.useState([])

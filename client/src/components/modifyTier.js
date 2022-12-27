@@ -1,19 +1,20 @@
 
 import DeroBridgeApi from '../api.js'
-import React from 'react'
+import React, {useContext} from 'react'
+import {LoginContext} from '../LoginProvider';
 import ReactDOM from 'react-dom'
 import to from 'await-to-js'
 import sha256 from 'crypto-js/sha256'
 import { useParams,useSearchParams } from 'react-router-dom'
-import { LoginContext } from '../LoginContext';
+import { LoginProvider } from '../LoginProvider';
 import Success from './success.js'
 
 
 export default function ModifyTier(){
 
+  const {state} = useContext(LoginContext);
 const [searchParams,setSearchParams] = useSearchParams()
 const params = useParams()
-const [state, setState] = React.useContext(LoginContext);
 const [tierObj,setTierObj] = React.useState({"name":null})
 const [custom,setCustom]=React.useState(false)
 

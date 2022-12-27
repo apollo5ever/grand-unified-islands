@@ -1,17 +1,17 @@
-import React from 'react'
+import React, {useContext} from 'react'
+import {LoginContext} from '../LoginProvider';
 import { useParams } from 'react-router-dom';
-import { LoginContext } from '../LoginContext';
 import to from 'await-to-js'
 import sha256 from 'crypto-js/sha256'
 
 
 export default function Fundraiser() {
 
+  const {state} = useContext(LoginContext);
   const [signal,setSignal] = React.useState({})
   const params = useParams()
   const island = params.island
   const index = params.index
-  const [state, setState] = React.useContext(LoginContext);
 
   const [raised,setRaised] = React.useState(-1)
 

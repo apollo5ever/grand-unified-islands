@@ -1,0 +1,12 @@
+{
+  "semi": true,
+  "bracketSpacing: false,
+  "overrides": [
+    {
+      "files": ".jsx",
+      "options": {
+        "semi": false
+      }
+    }
+  ]
+}

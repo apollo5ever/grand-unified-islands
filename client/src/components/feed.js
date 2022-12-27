@@ -1,8 +1,5 @@
-import React from 'react'
-import { NavLink ,Link} from 'react-router-dom';
-import IslandCard from './islandCard';
-import { LoginContext } from '../LoginContext';
-import PostCard from './postcard';
+import React, {useContext} from 'react'
+import {LoginContext} from '../LoginProvider';
 import CryptoJS from 'crypto-js';
 import { Buffer } from 'buffer';
 import Post from './post';

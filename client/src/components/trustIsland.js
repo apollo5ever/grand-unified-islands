@@ -1,15 +1,10 @@
-import React from 'react'
+import {useContext, useCallback} from 'react'
 import to from 'await-to-js'
-import { LoginContext } from '../LoginContext';
-
-
-
-
-
+import {LoginContext} from '../LoginProvider';
 
 export default function TrustIsland(props){
-const [state, setState] = React.useContext(LoginContext);
-  const TI=React.useCallback(async (e) => {
+const {state, setState} = useContext(LoginContext);
+  const TI=useCallback(async (e) => {
     e.preventDefault()
 let island=state.myIslands[state.active].name
 

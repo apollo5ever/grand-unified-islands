@@ -17,8 +17,10 @@
     "ipns": "^2.0.3",
     "libp2p": "^0.37.3",
     "libp2p-gossipsub": "^0.13.0",
+    "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-helmet-async": "^1.3.0",
     "react-icons": "^4.6.0",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
@@ -50,5 +52,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "eslint-config-prettier": "^8.5.0",
+    "prettier": "2.8.1",
+    "sass": "^1.57.1"
   }
 }
