@@ -13,6 +13,7 @@ import BottleList from './bottleList';
 export default function IslandList(){
 
     const [islands,setIslands] = React.useState([])
+    const [shuffledIslands,setShuffledIslands] = React.useState([]);
     const [state, setState] = React.useContext(LoginContext);
     const [view,setView]=React.useState("");
     let [searchParams, setSearchParams] = useSearchParams();
@@ -42,14 +43,19 @@ export default function IslandList(){
 
     React.useEffect(() => {
             getIslands()
-      }, [state.ipfs])
+      }, [])
+
+  React.useEffect(() => {
+    // shuffle the array and update the state
+    setShuffledIslands(shuffleArray(islands));
+  }, [islands]); // specify an empty array as the dependencies to run the effect only when the component mounts or updates
 
 
 
      
-     const islandJSX = shuffleArray(islands).map(bio => {
-         return( <NavLink to={`/island/${bio.name}?view=main`}><IslandCard  name={bio.name} tagline={bio.tagline} image={bio.image} /></NavLink> )
-     })
+//     const islandJSX = shuffleArray(islands).map(bio => {
+  //       return( <NavLink to={`/island/${bio.name}?view=main`}><IslandCard  name={bio.name} tagline={bio.tagline} image={bio.image} /></NavLink> )
+    // })
       return(
         <div className="function">
           <NavLink to={`/archipelago`}><h1>The Archipelago</h1></NavLink>
@@ -58,7 +64,9 @@ export default function IslandList(){
           </div>
          {!searchParams.get("filter")?<div>
           
-          <div className="profile-card-grid">{islandJSX}</div>
+          <div className="profile-card-grid">{islands.map(bio => {
+         return( <NavLink to={`/island/${bio.name}?view=main`}><IslandCard  name={bio.name} tagline={bio.tagline} image={bio.image} /></NavLink> )
+     })}</div>
                 
          
          </div>
