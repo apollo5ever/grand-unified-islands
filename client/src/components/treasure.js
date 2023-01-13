@@ -198,7 +198,7 @@ export default function Treasure() {
             <h3>Treasure: {treasure.treasure} Dero</h3>
             <h3>{treasure.tagline}</h3>
             {treasure.status==0?<p>This treasure expires on {new Date(treasure.expiry*1000).getDate()}/{new Date(treasure.expiry*1000).getMonth()+1}/{new Date(treasure.expiry*1000).getUTCFullYear()}. If treasure isn't released before this date, contributors can return to this page to receive a 95% refund.</p>
-            :treasure.status==2?<p>This bounty has expired. If you added your treasure, you can reclaim it now.<RT island={island} index={index}/></p>
+            :treasure.status==2?<p>This bounty has expired. If you added your treasure, you can reclaim it now.<RT dba={state.deroBridgeApiRef} island={island} index={index}/></p>
             :<p>This bounty was a success.</p>}
             
             
