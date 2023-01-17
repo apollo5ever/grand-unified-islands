@@ -135,7 +135,7 @@ export default function Treasure() {
         //setTreasure(await getBounties(state,island))
         console.log(t)
         console.log(t[0].executerList.length)
-        setTreasure(t[0])
+        setTreasure(t[params.index])
   }
   )
 

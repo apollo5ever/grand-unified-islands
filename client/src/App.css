@@ -436,14 +436,19 @@ input[type="button"],
 input[type="submit"],
 input[type="reset"],
 button {
-  background-color: #4658ff;
+  background-color: #4CAF50; /* Green */
   border: none;
   color: white;
-  padding: 16px 32px;
+  padding: 15px 32px;
+  text-align: center;
   text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
   margin: 4px 2px;
   cursor: pointer;
-  box-shadow: 1px 2px #000000;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+  border-radius: 12px;
+  text-shadow: 1px 1px #000;
 }
 
 button:active {

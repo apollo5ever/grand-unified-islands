@@ -81,46 +81,29 @@ export default function PublishPost(){
 
   const encryptedPost = CryptoJS.AES.encrypt(JSON.stringify(post),key).toString()
 console.log(encryptedPost)
-    var postData = JSON.stringify({
-      "pinataOptions": {
-        "cidVersion": 0
-      },
-      "pinataMetadata": {
-        "name": params.island,
-        "keyvalues": {
-        }
-      },
-      "pinataContent": encryptedPost
-    });
 
-    const islandPinata = await fetch('https://api.pinata.cloud/pinning/pinJSONToIPFS', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json','authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySW5mb3JtYXRpb24iOnsiaWQiOiJhNjc5NzU5MS02OGUxLTQyNzAtYjZhMy01NjBjN2Y3M2IwYTMiLCJlbWFpbCI6ImJhY2tlbmRAYW1icm9zaWEubW9uZXkiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwicGluX3BvbGljeSI6eyJyZWdpb25zIjpbeyJpZCI6IkZSQTEiLCJkZXNpcmVkUmVwbGljYXRpb25Db3VudCI6MX0seyJpZCI6Ik5ZQzEiLCJkZXNpcmVkUmVwbGljYXRpb25Db3VudCI6MX1dLCJ2ZXJzaW9uIjoxfSwibWZhX2VuYWJsZWQiOmZhbHNlLCJzdGF0dXMiOiJBQ1RJVkUifSwiYXV0aGVudGljYXRpb25UeXBlIjoic2NvcGVkS2V5Iiwic2NvcGVkS2V5S2V5IjoiMDgzZTJkMGQ2Yzg2YTBhNjlkY2YiLCJzY29wZWRLZXlTZWNyZXQiOiJlN2VlMTE4MWM2YTBlN2FmNjQ0YmUzZmEyYmU1ZWY5ZWFmMmNmMmYyYzc0NWQzZGIxNDdiMThhOTU5NWMwZDNlIiwiaWF0IjoxNjYxMTk1NjUxfQ.9Pz2W_h7zCiYyuRuVySKcDwA2fl_Jbm6QDulihAIpmo`
-     },
-      
-            body:  postData
-    });
+
+
 
     
-    const addPost= await state.ipfs.add(JSON.stringify(encryptedPost).toString())
-    const M =addPost.cid.toString()
+    // const addPost= await state.ipfs.add(JSON.stringify(encryptedPost).toString())
+    // const M =addPost.cid.toString()
 
-    supporterList=supporterList.map(x=>new Object({
-      "destination":x,
-      "amount":1,
-      "payload_rpc":[{
-              "name": "key",
-              "datatype": "S",
-              "value": key
-      },
-      {
-        "name":"cid",
-        "datatype":"S",
-        "value":M
-      }
-]
-      }))
+    // var postData = JSON.stringify({
+    //   "cid":M,
+    //   "name":`${params.island}_mib`
+    // });
+
+    // const islandPinata = await fetch('https://api.filebase.io/v1/ipfs/pins', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json','authorization': `Bearer QzczQTJBNURDNTc1NUM3NUMzMTM6RTh4RDJVQkgzMldXenhmZ1JaMGtHU2FKaG4zYmR5R1JtSXEzMlowdDpwcml2YXRlaXNsYW5kcw==`
+    //  },
+      
+    //         body:  postData
+    // });
+
+
 /*
     let supporterList = Object.keys(scData)
     .filter(key=>supporterSearch.test(key))
@@ -142,8 +125,51 @@ console.log(encryptedPost)
       }))
 */
      // console.log(supporterList,new Date().getTime()*1000)
+     const fee = encryptedPost.length*3
 
+     const [err1, res1] = await to(deroBridgeApi.wallet('start-transfer', {
 
+      "scid": "8088b0089725de1d323276a0daa1f25cfab9c0b68ccb9318cbf6bf83f5a127c1",
+    	"ringsize": 2,
+      
+    	"sc_rpc": [{
+    		"name": "entrypoint",
+    		"datatype": "S",
+    		"value": "StoreKeyString"
+    	},
+    	{
+    		"name": "k",
+    		"datatype": "S",
+    		"value": `private.islands.${params.island}_${Date.now()}`
+    	},
+        {
+            "name": "v",
+            "datatype" : "S",
+            "value" :`00000${encryptedPost}00000`
+        }]
+     
+     
+    
+  
+ }))
+ console.log(res1.data.result.txid)
+ const txid = res1.data.result.txid
+
+ supporterList=supporterList.map(x=>new Object({
+  "destination":x,
+  "amount":1,
+  "payload_rpc":[{
+          "name": "key",
+          "datatype": "S",
+          "value": key
+  },
+  {
+    "name":"txid",
+    "datatype":"S",
+    "value":txid
+  }
+]
+  }))
    
     
     const [err, res] = await to(deroBridgeApi.wallet('start-transfer', {
