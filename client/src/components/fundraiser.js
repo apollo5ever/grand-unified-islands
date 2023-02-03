@@ -26,7 +26,7 @@ export default function Fundraiser() {
     console.log(state,island)
      const fundraiser = await getFundraisers(state,island)
      console.log(await fundraiser)
-     setSignal(await fundraiser[0])
+     setSignal(await fundraiser.filter(x=>x.index==index)[0])
   }
   )
 
