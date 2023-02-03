@@ -109,12 +109,13 @@ for(let i = 0; i<bounties.length; i++){
   if(fund.deadline> new Date().getTime()/1000) fund.status=0
   else if(fund.deadline< new Date().getTime()/1000 && fund.goal< fund.raised) fund.status = 1
   else if(fund.deadline<new Date().getTime()/1000 && fund.goal > fund.raised) fund.status = 2
+  else fund.status=2
 
   if(i==bounties.length-1){
     console.log("i=length",i,island,bounties)
     if(island){
-      console.log("return",bounties.filter(x=>x.island==island))
-  return( bounties.filter(x=>x.island==island))
+      console.log("return",bounties.filter(x=>x.island==island && x.index == j))
+  return( bounties.filter(x=>x.island==island && x.index == j))
 }
   else return(bounties)
   }
