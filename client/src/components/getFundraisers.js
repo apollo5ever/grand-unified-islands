@@ -114,8 +114,8 @@ for(let i = 0; i<bounties.length; i++){
   if(i==bounties.length-1){
     console.log("i=length",i,island,bounties)
     if(island){
-      console.log("return",bounties.filter(x=>x.island==island && x.index == j))
-  return( bounties.filter(x=>x.island==island && x.index == j))
+      console.log("return",j,bounties.filter(x=>x.island==island && parseInt(x.index) == j))
+  return( bounties.filter(x=>x.island==island && parseInt(x.index) == j))
 }
   else return(bounties)
   }
