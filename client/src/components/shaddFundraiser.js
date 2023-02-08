@@ -1,26 +1,14 @@
 
 import DeroBridgeApi from '../api.js'
-import React from 'react'
+import React, {useContext} from 'react'
 import ReactDOM from 'react-dom'
 import to from 'await-to-js'
 import sha256 from 'crypto-js/sha256'
 
 
-import { LoginContext } from '../LoginContext';
-
-
 export default function CreateFund() {
 
-    
-    
-    const [state, setState] = React.useContext(LoginContext);
-
-
-
-
- 
-
-
+  const {state} = useContext(LoginContext);
 
   const DoIt = React.useCallback(async (event) => {
     event.preventDefault();

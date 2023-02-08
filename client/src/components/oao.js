@@ -1,14 +1,14 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import { useParams ,Link} from 'react-router-dom'
 
-import { LoginContext } from '../LoginContext';
+import {LoginContext} from '../LoginProvider';
 import to from 'await-to-js';
 import DeroBridgeApi from '../api.js'
 import sha256 from 'crypto-js/sha256'
 
 
 export default function OAO() {
-  const [state, setState] = React.useContext(LoginContext);
+  const {state, setState} = useContext(LoginContext);
   const [openVoteMotion,setOpenVoteMotion] = React.useState(0)
   const [hash,setHash] = React.useState("")
 

@@ -2,7 +2,7 @@ import React from 'react'
 import TreasureCard from './treasureCard'
 import '../App.css'
 import {useSearchParams,NavLink} from 'react-router-dom'
-import { LoginContext } from '../LoginContext'
+import {LoginContext} from '../LoginProvider';
 import to from 'await-to-js'
 import sha256 from 'crypto-js/sha256'
 import getBounties from './getBounties'
@@ -11,7 +11,7 @@ import getBounties from './getBounties'
 export default function BountyList(){
 
 
-    const [state, setState] = React.useContext(LoginContext);
+    const {state} = React.useContext(LoginContext);
 
 
    

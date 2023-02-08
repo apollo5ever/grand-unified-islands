@@ -6,7 +6,7 @@ import to from 'await-to-js'
 import sha256 from 'crypto-js/sha256'
 import { useParams,useSearchParams } from 'react-router-dom'
 
-import { LoginContext } from '../LoginContext';
+import {LoginContext} from '../LoginProvider';
 import Success from './success.js'
 import hex2a from './hex2a.js'
 
@@ -16,7 +16,7 @@ export default function BuryTreasure() {
 
     
     
-    const [state, setState] = React.useContext(LoginContext);
+    const {state, setState} = React.useContext(LoginContext);
 
 
 

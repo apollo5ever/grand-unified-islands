@@ -1,14 +1,12 @@
-import React from 'react'
-import { useParams ,Link} from 'react-router-dom'
-
-import { LoginContext } from '../LoginContext';
+import React, {useContext} from 'react'
+import {LoginContext} from '../LoginProvider';
 import to from 'await-to-js';
 import DeroBridgeApi from '../api.js'
 import sha256 from 'crypto-js/sha256'
 
 
 export default function CEO() {
-  const [state, setState] = React.useContext(LoginContext);
+  const {state} = useContext(LoginContext);
   const [openVoteMotion,setOpenVoteMotion] = React.useState(0)
 
   const [vacant, setVacant] = React.useState(null) 

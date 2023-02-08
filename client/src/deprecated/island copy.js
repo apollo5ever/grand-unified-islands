@@ -1,13 +1,13 @@
-import React from 'react'
+import React, {useContext} from 'react'
+import {LoginContext} from '../LoginProvider';
 import { useParams } from 'react-router-dom'
-import { LoginContext } from '../LoginContext';
 import {useSearchParams,NavLink} from 'react-router-dom'
 import to from 'await-to-js';
-import TreasureCard from './treasureCard';
-import FundCard from './fundCard';
-import Subscribe from './subscribe';
-import TrustIsland from './trustIsland';
-import hex2a from './hex2a';
+import TreasureCard from '../components/treasureCard';
+import FundCard from '../components/fundCard';
+import Subscribe from '../components/subscribe';
+import TrustIsland from '../components/trustIsland';
+import hex2a from '../components/hex2a';
 import getMIB from './getMIB';
 import GI from './getIslands'
 
@@ -15,7 +15,8 @@ import GI from './getIslands'
 
 
 export default function Island(){
-  
+  const {state} = useContext(LoginContext);
+
   
   const [post,setPost]=React.useState([])
   const [editing,setEditing]=React.useState("")
@@ -24,7 +25,6 @@ export default function Island(){
   const [postToEdit,setPostToEdit]=React.useState(0)
   const [signalToClaim,setSignalToClaim]=React.useState(0)
   const [treasureToClaim,setTreasureToClaim]=React.useState(0)
-  const [state, setState] = React.useContext(LoginContext);
   let [searchParams, setSearchParams] = useSearchParams();
   const [treasures,setTreasures] = React.useState([])
   const [judging,setJudging] = React.useState([])

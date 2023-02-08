@@ -1,6 +1,5 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import { LoginContext } from '../LoginContext';
+import React, {useContext} from 'react'
+import {LoginContext} from '../LoginProvider';
 import {useParams,useSearchParams} from 'react-router-dom'
 import CryptoJS, { x64 } from 'crypto-js';
 import to from 'await-to-js';
@@ -10,9 +9,8 @@ import Success from './success';
 
 
 export default function PublishPost(){
-
-  const [state, setState] = React.useContext(LoginContext);
-  const params=useParams() 
+  const {state} = useContext(LoginContext);
+  const params=useParams()
   const [tierList,setTierList]=React.useState([]) 
   const [searchParams,setSearchParams]=useSearchParams()
 

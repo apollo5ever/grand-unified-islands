@@ -1,16 +1,15 @@
-import React from 'react'
+import React, {useContext} from 'react'
+import {LoginContext} from '../LoginProvider';
 import FundCard from './fundCard'
 import '../App.css'
 import {useSearchParams,NavLink} from 'react-router-dom'
-import { LoginContext } from '../LoginContext'
 import to from 'await-to-js'
 import sha256 from 'crypto-js/sha256'
 
 
 export default function FundList(){
 
-
-    const [state, setState] = React.useContext(LoginContext);
+  const {state} = useContext(LoginContext);
 
 
    

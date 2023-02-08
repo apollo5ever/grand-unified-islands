@@ -9,6 +9,16 @@
   flex-direction: column;
 }
 
+.main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin-left: auto;
+  margin-right: auto;
+  flex-direction: column;
+}
+
 body {
   background-color: #7dc0ff86;
   background-size: cover;
@@ -211,7 +221,7 @@ footer {
 }
 
 .icons-treasure {
-  background-image: url("./images/DeroIslands-Treasure_Chest1_400.png");
+  background-image: url("assets/DeroIslands-Treasure_Chest1_400.png");
 
   background-position: center;
   background-size: 8vw 8vw;
@@ -226,7 +236,7 @@ footer {
 }
 
 .icons-signal {
-  background-image: url("./images/DeroIslands-Smoke_Signals1_400.png");
+  background-image: url("assets/DeroIslands-Smoke_Signals1_400.png");
   background-position: center;
   background-size: 8vw 8vw;
   margin: 2vw;
@@ -239,7 +249,7 @@ footer {
   display: flex;
 }
 .icons-mail {
-  background-image: url("./images/DeroIslands-message\ in\ a\ bottle.png");
+  background-image: url("./assets/DeroIslands-message\ in\ a\ bottle.png");
   background-position: center;
   background-size: 8vw 8vw;
   margin: 2vw;
